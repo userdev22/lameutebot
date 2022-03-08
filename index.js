@@ -94,7 +94,7 @@ Client.on("messageCreate", message => {
         message.reply("oui hésite pas a l'envoiyée dans #💡-𝐁𝐨𝐢𝐭𝐞-à-𝐢𝐝é𝐞-💡 ! ---> https://discord.gg/nsrxbAzq")
     }
     if(message.content === prefix + "patch"){
-     Client.channels.cache.get("950080954490298498").send("Patch Note 06/03/2022\n -Création séction Ps4 et Pc\n -Création d'un bot La Meute\n -Ajout compteur abonée Youtube sur Discord.\n \n La Meute Rework ")
+     Client.channels.cache.get("950080954490298498").send("Patch Note 08/03/2022\n -Mise en Ligne du bot La Meute\n \n La Meute Rework ")
     
     }
     else if(message.content === prefix + "react"){
