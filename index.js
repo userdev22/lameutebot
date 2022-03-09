@@ -26,6 +26,15 @@ Client.on("ready", async () => {
 
 
     await Client.guilds.cache.get("948662312577941594").commands.fetch();
+
+    function randomStatus(){
+        let status = ["La Meute sur Youtube","!help"]
+        let rstatus = Math.floor(Math.random() * status.length);
+
+        Client.user.setActivity(status[rstatus], {type: "WATCHING", url: "https://www.youtube.com/channel/UCq_rgq4OolfZiYx-dvLNMaQ?view_as=subscriber"});
+
+    }; setInterval(randomStatus, 2000)
+
 });
 
 //Arrivé d'un membre
