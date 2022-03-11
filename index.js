@@ -154,7 +154,7 @@ Client.on("interactionCreate", interaction => {
     if(interaction.isButton()){
         if(interaction.customId === "report"){
             interaction.deferUpdate();
-            interaction.guild.channels.create('test')
+            interaction.guild.channels.create(`🎟️ticket`)
         }
     }
 
