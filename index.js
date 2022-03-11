@@ -154,11 +154,36 @@ Client.on("interactionCreate", interaction => {
     if(interaction.isButton()){
         if(interaction.customId === "report"){
             interaction.deferUpdate();
-            interaction.guild.channels.create(`🎟️ticket`)
+            interaction.guild.channels.create(`🎟️ticket`).then(chan => {
+                let category = interaction.guild.channels.cache.get("951762219979391006", c => c.type == "category")
+                chan.setParent(category)
+
+                let role1 = member.guild.roles.cache.get("948663161857409024")
+                    let role2 = member.guild.roles.cache.get("949314429122658404")
+                    let everyone = member.guild.roles.cache.get("948662312577941594")
+
+                    chan.updateOverwrite(role1, {
+                        SEND_MESSAGES: true,
+                        VIEW_CHANNEL: true
+                    })
+                    chan.updateOverwrite(role2, {
+                        SEND_MESSAGES: true,
+                        VIEW_CHANNEL: true
+                    })
+                    chan.updateOverwrite(member, {
+                        SEND_MESSAGES: true,
+                        VIEW_CHANNEL: true
+                    })
+                    chan.updateOverwrite(everyone, {
+                        SEND_MESSAGES: false,
+                        VIEW_CHANNEL: false
+                    })
+                }).catch(console.error)  
+            }
         }
     }
 
-});
+);
 
 
 Client.login(process.env.token);
