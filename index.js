@@ -39,53 +39,6 @@ Client.on("ready", async () => {
 
 });
 
-Client.on("raw", event => {
-    if(event.t === "MESSAGE_REACTION_ADD"){
-        if(event.d.message_id === "951761961652195368"){
-            let member = Client.guilds.cache.get(event.d.guilds_id).members.cache.get(event.d.user_id)
-            console.log("ticket marche !");
-            if(event.d.emoji.name === "🔴"){
-                member.guild.channels.create(`🎟️ ${member.user.username}`, {type: "text"}).then(chan => {
-                    let category = member.guild.channels.cache.get("951762219979391006", c => c.type == "category")
-                    chan.setParent(category)
-
-                    let role1 = member.guild.roles.cache.get("948663161857409024")
-                    let role2 = member.guild.roles.cache.get("949314429122658404")
-                    let everyone = member.guild.roles.cache.get("948662312577941594")
-
-                    chan.updateOverwrite(role1, {
-                        SEND_MESSAGES: true,
-                        VIEW_CHANNEL: true
-                    })
-                    chan.updateOverwrite(role2, {
-                        SEND_MESSAGES: true,
-                        VIEW_CHANNEL: true
-                    })
-                    chan.updateOverwrite(member, {
-                        SEND_MESSAGES: true,
-                        VIEW_CHANNEL: true
-                    })
-                    chan.updateOverwrite(everyone, {
-                        SEND_MESSAGES: false,
-                        VIEW_CHANNEL: false
-                    })
-                }).catch(console.error)
-            }
-        }
-    }
-});
-
-Client.on("message", async message => {
-    if(message.content === prefix + "close"){
-        if(message.channel.parentID == "951762219979391006"){
-            message.channel.send("Le probleme a éte régler, le salon va se fermer dans 30 secondes !")
-            message.guild.channels.cache.get(message.channel.id).setName(`🎟️  Problème réglé !`)
-            setTimeout(() => {
-                message.channel.delete()
-            }, 30 *600)
-        }
-    }
-});
 
 //Arrivé d'un membre
 Client.on("guildMemberAdd", async member => {
@@ -164,6 +117,21 @@ Client.on("messageCreate", message => {
         m.react("<:meute:949960531039625306>");
        })
     }
+
+    //Bouton
+
+    if(message.content === prefix + "ticket"){
+        var row = new Discord.MessageActionRow()
+            .addComponents(new Discord.MessageButton()
+                .setCustomId("report")
+                .setLabel("Créer un Ticket")
+                .setStyle("DANGER")
+                .setEmoji("🎟️")
+            );
+
+            message.channel.send({content: "Créer un ticket", components: [row]});
+    }
+
 });
 
 
@@ -182,6 +150,14 @@ Client.on("interactionCreate", interaction => {
             }
         }
     }
+
+    if(interaction.isButton()){
+        if(interaction.customId === "report"){
+            interaction.deferUpdate();
+            interaction.guild.channels.create('')
+        }
+    }
+
 });
 
 
