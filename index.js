@@ -156,8 +156,7 @@ Client.on("interactionCreate", interaction => {
             interaction.deferUpdate();
             interaction.guild.channels.create(`🎟️ticket `).then(chan => {
                 let category = interaction.guild.channels.cache.get("951762219979391006", c => c.type == "category")
-        
-                chan.setParent(category)
+                 chan.setParent(category)
 
     
                 })
